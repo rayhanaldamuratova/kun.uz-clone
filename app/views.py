@@ -22,9 +22,18 @@ def news_detail(request, id):
 
 def home_page(request):
     news_list = News.objects.filter(status=News.Status.Published)
-
+    mixin_news = News.objects.all().order_by('-publish_time')[:3]
+    uzb_news_1 = News.published.all().filter(category__name="O'zbekiston").order_by('-publish_time')[0]
+    uzb_news_2 = News.published.all().filter(category__name="O'zbekiston").order_by('-publish_time')[1]
+    uzb_news_3 = News.published.all().filter(category__name="O'zbekiston").order_by('-publish_time')[2]
+    uzb_news_4 = News.published.all().filter(category__name="O'zbekiston").order_by('-publish_time')[3]
     context = {
-        'news_list': news_list
+        'news_list': news_list,
+        'mixin_news': mixin_news,
+        'uzb_news_1': uzb_news_1,
+        'uzb_news_2': uzb_news_2,
+        'uzb_news_3': uzb_news_3,
+        'uzb_news_4': uzb_news_4,
     }
 
     return render(request, 'news/index.html', context=context)
